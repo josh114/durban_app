@@ -16,9 +16,8 @@ const attendanceRoutes = require('./routes/attendanceRoutes');
 const payrollRoutes = require('./routes/payrollRoutes');
 
 // MongoDB database Connection
-mongoose.connect(
-  'mongodb+srv://navy:joshas124jk@navycrane.bszn8zi.mongodb.net/durban?retryWrites=true&w=majority'
-);
+const dbUrl = process.env.db;
+mongoose.connect(dbUrl);
 const db = mongoose.connection;
 db.on('error', (err) => console.log('Error connecting to database'));
 db.once('open', () => console.log('Connected to DB'));
