@@ -6,6 +6,8 @@ const allowedOrigins = [
   'http://localhost:5176',
   'http://localhost:5177',
   'http://localhost:5178',
+  'https://admin.durban.joshdev.tech',
+  'https://hub.durban.joshdev.tech',
 ];
 
 module.exports = allowedOrigins;
