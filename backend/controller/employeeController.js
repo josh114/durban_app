@@ -114,7 +114,7 @@ const createEmployee = async (req, res) => {
       fullname: req.body.fullname,
       email: req.body.email,
       password: hashPassword,
-      profile: req.file.filename,
+      // profile: req.file.filename,
       gender: req.body.gender,
       department: req.body.department,
       phoneNumber: req.body.phoneNumber,

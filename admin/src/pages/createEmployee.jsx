@@ -33,7 +33,15 @@ const CreateEmployee = () => {
   const [password, setPassword] = useState('');
   const toast = useToast();
   const navigate = useNavigate();
-
+  const body = {
+    fullname,
+    email,
+    // profile,
+    gender,
+    phoneNumber,
+    department,
+    password,
+  };
   const handleChange = (e) => {
     setProfile(e.target.files ? e.target.files[0] : null);
   };
@@ -46,21 +54,13 @@ const CreateEmployee = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formData = new FormData();
-      for (const [key, value] of Object.entries(body)) {
-        formData.append(key, value);
-      }
+      // const formData = new FormData();
+      // for (const [key, value] of Object.entries(body)) {
+      //   formData.append(key, value);
+      // }
       // console.log(formData);
       // console.log(body);
-      const body = {
-        fullname,
-        email,
-        // profile,
-        gender,
-        phoneNumber,
-        department,
-        password,
-      };
+
       // await addEmployee(formData).unwrap();
       await addEmployee(body).unwrap();
       navigate('/employees');
