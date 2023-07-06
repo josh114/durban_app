@@ -12,36 +12,27 @@ import {
   FormLabel,
   FormErrorMessage,
   FormHelperText,
-} from "@chakra-ui/react";
-import { useAddEmployeeMutation } from "../features/employeeSlice";
-import { useGetAllDepartmentQuery } from "../features/departmentSlice";
-import { FcAddImage } from "react-icons/fc";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+} from '@chakra-ui/react';
+import { useAddEmployeeMutation } from '../features/employeeSlice';
+import { useGetAllDepartmentQuery } from '../features/departmentSlice';
+import { FcAddImage } from 'react-icons/fc';
+import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CreateEmployee = () => {
   const { data: depth } = useGetAllDepartmentQuery();
   const [addEmployee] = useAddEmployeeMutation();
   const [profile, setProfile] = useState(null);
-  const [fullname, setFullname] = useState("");
-  const [email, setEmail] = useState("");
-  const [gender, setGender] = useState("");
+  const [fullname, setFullname] = useState('');
+  const [email, setEmail] = useState('');
+  const [gender, setGender] = useState('');
   const [phoneNumber, setPhoneNumber] = useState(0);
-  const [department, setSetDepartment] = useState("");
-  const [password, setPassword] = useState("");
+  const [department, setSetDepartment] = useState('');
+  const [password, setPassword] = useState('');
   const toast = useToast();
   const navigate = useNavigate();
-  const body = {
-    fullname,
-    email,
-    profile,
-    gender,
-    phoneNumber,
-    department,
-    password,
-  };
 
   const handleChange = (e) => {
     setProfile(e.target.files ? e.target.files[0] : null);
@@ -59,15 +50,25 @@ const CreateEmployee = () => {
       for (const [key, value] of Object.entries(body)) {
         formData.append(key, value);
       }
-      console.log(formData);
-      console.log(body);
-      await addEmployee(formData).unwrap();
-      navigate("/employees");
+      // console.log(formData);
+      // console.log(body);
+      const body = {
+        fullname,
+        email,
+        // profile,
+        gender,
+        phoneNumber,
+        department,
+        password,
+      };
+      // await addEmployee(formData).unwrap();
+      await addEmployee(body).unwrap();
+      navigate('/employees');
       toast({
-        title: "New Employee Added",
-        position: "top-right",
-        variant: "left-accent",
-        status: "success",
+        title: 'New Employee Added',
+        position: 'top-right',
+        variant: 'left-accent',
+        status: 'success',
         duration: 2000,
         isClosable: true,
       });
@@ -75,9 +76,9 @@ const CreateEmployee = () => {
       console.log(error);
       toast({
         title: error.data,
-        position: "top-right",
-        variant: "left-accent",
-        status: "error",
+        position: 'top-right',
+        variant: 'left-accent',
+        status: 'error',
         duration: 2000,
         isClosable: true,
       });
@@ -85,52 +86,55 @@ const CreateEmployee = () => {
   };
 
   return (
-    <Flex width={"100%"} height={"fit-content"}>
+    <Flex width={'100%'} height={'fit-content'}>
       <Sidebar />
       <Box
-        width={["100%", "100%", "100%", "100%", "82%"]}
-        marginLeft={[0, 0, 0, 0, "243px"]}
-        height={"fit-content"}
-        bg={"#edf2f9"}>
+        width={['100%', '100%', '100%', '100%', '82%']}
+        marginLeft={[0, 0, 0, 0, '243px']}
+        height={'fit-content'}
+        bg={'#edf2f9'}
+      >
         <Navbar />
 
-        <Box width={"100%"} height={"100vh"} padding={5}>
+        <Box width={'100%'} height={'100vh'} padding={5}>
           <form onSubmit={handleSubmit}>
             <Box
-              width={"100%"}
+              width={'100%'}
               height='100%'
               rounded={5}
-              bg={"#ffffff"}
-              padding={5}>
+              bg={'#ffffff'}
+              padding={5}
+            >
               <Text fontWeight={700} fontSize='25'>
                 Create Employee
               </Text>
               <Flex
-                width={"100%"}
-                justifyContent={"flex-start"}
-                alignItems={"end"}
-                marginBottom={3}>
+                width={'100%'}
+                justifyContent={'flex-start'}
+                alignItems={'end'}
+                marginBottom={3}
+              >
                 <Box>
                   <FormLabel fontSize={18}>Profile Picture</FormLabel>
                   <Image
                     borderRadius='full'
                     boxSize='150px'
-                    objectFit={"cover"}
+                    objectFit={'cover'}
                     src={
                       !profile
-                        ? "https://cdn-icons-png.flaticon.com/512/1177/1177568.png"
+                        ? 'https://cdn-icons-png.flaticon.com/512/1177/1177568.png'
                         : URL.createObjectURL(profile)
                     }
                     alt='Profile picture'
                   />
                 </Box>
-                <FormControl width={"fit-content"}>
+                <FormControl width={'fit-content'}>
                   <FormLabel htmlFor='Profile'>
                     <Icon as={FcAddImage} width={50} height={50} />
                     <Input
-                      display={"none"}
+                      display={'none'}
                       id='Profile'
-                      border={"2px #051724 solid !important"}
+                      border={'2px #051724 solid !important'}
                       onChange={handleChange}
                       type='file'
                     />
@@ -138,12 +142,12 @@ const CreateEmployee = () => {
                 </FormControl>
               </Flex>
 
-              <Flex width={"100%"} gap={5} marginBottom={3}>
+              <Flex width={'100%'} gap={5} marginBottom={3}>
                 <FormControl>
                   <FormLabel fontSize={18}>Full Name</FormLabel>
                   <Input
                     onChange={(e) => setFullname(e.target.value)}
-                    border={"2px #051724 solid !important"}
+                    border={'2px #051724 solid !important'}
                     fontWeight={600}
                     type='text'
                   />
@@ -152,7 +156,7 @@ const CreateEmployee = () => {
                   <FormLabel fontSize={18}>Email Address</FormLabel>
                   <Input
                     onChange={(e) => setEmail(e.target.value)}
-                    border={"2px #051724 solid !important"}
+                    border={'2px #051724 solid !important'}
                     fontWeight={600}
                     type='email'
                   />
@@ -162,8 +166,9 @@ const CreateEmployee = () => {
                   <Select
                     fontWeight={600}
                     onChange={(e) => setGender(e.target.value)}
-                    border={"2px #051724 solid !important"}
-                    placeholder='Select your gender'>
+                    border={'2px #051724 solid !important'}
+                    placeholder='Select your gender'
+                  >
                     <option fontWeight={600} value='Male'>
                       Male
                     </option>
@@ -174,20 +179,22 @@ const CreateEmployee = () => {
                 </FormControl>
               </Flex>
 
-              <Flex width={"100%"} gap={5} marginBottom={5}>
+              <Flex width={'100%'} gap={5} marginBottom={5}>
                 <FormControl>
                   <FormLabel fontSize={18}>Department</FormLabel>
                   <Select
                     fontWeight={600}
                     onChange={(e) => setSetDepartment(e.target.value)}
-                    border={"2px #051724 solid !important"}
-                    placeholder='Select employee department'>
+                    border={'2px #051724 solid !important'}
+                    placeholder='Select employee department'
+                  >
                     {depth &&
                       depth.departmentAll.map((dept) => (
                         <option
                           key={dept._id}
                           fontWeight={600}
-                          value={dept._id}>
+                          value={dept._id}
+                        >
                           {dept.name}
                         </option>
                       ))}
@@ -198,7 +205,7 @@ const CreateEmployee = () => {
                   <Input
                     fontWeight={600}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    border={"2px #051724 solid !important"}
+                    border={'2px #051724 solid !important'}
                     type='text'
                   />
                 </FormControl>
@@ -207,22 +214,23 @@ const CreateEmployee = () => {
                   <Input
                     fontWeight={600}
                     onChange={(e) => setPassword(e.target.value)}
-                    border={"2px #051724 solid !important"}
+                    border={'2px #051724 solid !important'}
                     type='password'
                   />
                 </FormControl>
               </Flex>
               <Button
-                bg={"#051724"}
-                color={"#ffffff"}
+                bg={'#051724'}
+                color={'#ffffff'}
                 width={140}
                 type='submit'
                 _hover={{
-                  color: "#051724",
-                  background: "#f4f4f4",
-                  border: "2px #051724 solid",
+                  color: '#051724',
+                  background: '#f4f4f4',
+                  border: '2px #051724 solid',
                   fontWeight: 700,
-                }}>
+                }}
+              >
                 Submit
               </Button>
             </Box>

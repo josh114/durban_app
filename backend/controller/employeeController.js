@@ -1,8 +1,8 @@
-const { Employees } = require("../model/employeeModel");
-const bcrypt = require("bcrypt");
-const { Task } = require("../model/taskModel");
-const fs = require("fs");
-const { profile } = require("console");
+const { Employees } = require('../model/employeeModel');
+const bcrypt = require('bcrypt');
+const { Task } = require('../model/taskModel');
+const fs = require('fs');
+const { profile } = require('console');
 
 // Get all Employees
 
@@ -10,7 +10,7 @@ const getAllEmployees = async (req, res) => {
   try {
     const { page = 1, limit = 4 } = req.query;
     const allEmployees = await Employees.find()
-      .populate("department")
+      .populate('department')
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit)
@@ -30,11 +30,11 @@ const countEmployees = async (req, res) => {
   const countEmp = await Employees.find().count();
   const allEmp = await Employees.find();
   const latestEmp = await Employees.find()
-    .populate("department")
+    .populate('department')
     .sort({ createdAt: -1 })
     .limit(4);
-  const findMale = await Employees.find({ gender: "Male" }).count();
-  const findFemale = await Employees.find({ gender: "Female" }).count();
+  const findMale = await Employees.find({ gender: 'Male' }).count();
+  const findFemale = await Employees.find({ gender: 'Female' }).count();
   res.status(200).json({ countEmp, allEmp, latestEmp, findMale, findFemale });
 };
 
@@ -43,7 +43,7 @@ const getSingleEmployees = async (req, res) => {
   try {
     const id = req.params.id;
     const singleEmployees = await Employees.findById(id)
-      .populate("department")
+      .populate('department')
       .exec();
     res.status(200).json(singleEmployees);
   } catch (err) {
@@ -71,12 +71,12 @@ const searchEmp = async (req, res) => {
     const search = req.params.key;
     const searchEmployee = await Employees.find({
       $or: [
-        { fullname: { $regex: search, $options: "i" } },
-        { email: { $regex: search, $options: "i" } },
+        { fullname: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } },
       ],
-    }).populate("department");
+    }).populate('department');
     if (!searchEmployee) {
-      res.status(400).json("");
+      res.status(400).json('');
     }
     res.status(200).json(searchEmployee);
   } catch (err) {
@@ -89,7 +89,7 @@ const createEmployee = async (req, res) => {
   try {
     const { email, fullname, password, gender, department, phoneNumber } =
       req.body;
-
+    console.log(req.body);
     if (
       !email ||
       !fullname ||
@@ -100,12 +100,12 @@ const createEmployee = async (req, res) => {
     ) {
       return res
         .status(400)
-        .json("Details must be complete to register Employee");
+        .json('Details must be complete to register Employee');
     }
     const existingEmail = await Employees.findOne({ email });
     if (existingEmail) {
       // Checking for existing Email on database to avoid registering with same email
-      return res.status(400).json("This user has an account");
+      return res.status(400).json('This user has an account');
     }
 
     const salt = await bcrypt.genSalt(12);
@@ -134,13 +134,13 @@ const loginEmployee = async (req, res) => {
     const { email, password } = req.body;
     const user = await Employees.findOne({ email });
     if (!user) {
-      return res.status(400).json("Email doesnt have an account");
+      return res.status(400).json('Email doesnt have an account');
     }
     const matchPassword = await bcrypt.compare(password, user.password);
     if (!matchPassword) {
-      return res.status(400).json("Invalid email or password");
+      return res.status(400).json('Invalid email or password');
     }
-    res.status(200).json("Logged in Successfully");
+    res.status(200).json('Logged in Successfully');
   } catch (err) {
     res.status(500).json(err.message);
   }
@@ -169,7 +169,7 @@ const deleteEmployee = async (req, res) => {
     //     res.status(404).json(err.message);
     //   }
     // });
-    res.status(200).json("Deleted Succesfully");
+    res.status(200).json('Deleted Succesfully');
   } catch (err) {
     res.status(500).json(err.message);
   }
