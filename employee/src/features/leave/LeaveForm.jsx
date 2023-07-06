@@ -110,6 +110,7 @@ const LeaveForm = () => {
         <textarea
           name='reason'
           id='reason'
+          value={leaveReason}
           cols='30'
           rows='5'
           onChange={(e) => setLeaveReason(e.target.value)}

@@ -30,7 +30,7 @@
   width: 100%;
   padding: 8px 5px;
   background-color: #f9f9f9;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   border: none;
   color: #0e5b92;
 }
@@ -41,7 +41,7 @@
   width: 100%;
   padding: 8px 5px;
   background-color: #f9f9f9;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   border: none;
   color: #0e5b92;
 }
@@ -52,7 +52,7 @@
   width: 100%;
   padding: 8px 5px;
   background-color: #f9f9f9;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   border: none;
   color: #0e5b92;
 }
@@ -68,6 +68,7 @@
   border: none;
   border-radius: 6px;
   color: white;
+  font-size: 16px;
 }
 .leaveform-button:active {
   transform: scale(0.95);
