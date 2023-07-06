@@ -1,11 +1,11 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:5000",
-  credentials: "include",
+  baseUrl: 'https://api.durban.joshdev.tech',
+  credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (token) {
-      headers.set("authorization", `Bearer ${token}`);
+      headers.set('authorization', `Bearer ${token}`);
     }
     return headers;
   },
@@ -23,7 +23,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
     // send refresh token to get new access token
     const refreshResult = await baseQuery(
-      "/employee/auth/refresh",
+      '/employee/auth/refresh',
       api,
       extraOptions
     );
@@ -36,7 +36,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       result = await baseQuery(args, api, extraOptions);
     } else {
       if (refreshResult?.error?.status === 403) {
-        refreshResult.error.data.message = "Your login has expired. ";
+        refreshResult.error.data.message = 'Your login has expired. ';
       }
       return refreshResult;
     }
@@ -46,6 +46,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 };
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["Task", "Leave"],
+  tagTypes: ['Task', 'Leave'],
   endpoints: (builder) => ({}),
 });

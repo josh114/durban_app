@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const attendanceApi = createApi({
   reducerPath: "attendanceApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/attendance" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://api.durban.joshdev.tech/attendance" }),
   tagTypes: ["Attendance"],
   endpoints: (build) => ({
     getAttendance: build.query({

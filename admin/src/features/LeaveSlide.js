@@ -1,39 +1,41 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const leaveAPI = createApi({
-  reducerPath: "leaveAPI",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/leave" }),
-  tagTypes: ["Leaves"],
+  reducerPath: 'leaveAPI',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://api.durban.joshdev.tech/leave',
+  }),
+  tagTypes: ['Leaves'],
   endpoints: (builder) => ({
     getAllLeave: builder.query({
       query: () => `/`,
-      providesTags: ["Leaves"],
+      providesTags: ['Leaves'],
     }),
     getSingleLeave: builder.query({
       query: (id) => `/${id}`,
-      providesTags: ["Leaves"],
+      providesTags: ['Leaves'],
     }),
     createLeave: builder.mutation({
       query(body) {
         return {
-          url: "/create",
-          method: "POST",
+          url: '/create',
+          method: 'POST',
           body,
         };
       },
-      invalidatesTags: ["Leaves"],
+      invalidatesTags: ['Leaves'],
     }),
     updateLeave: builder.mutation({
       query(data) {
         const { id, ...body } = data;
         return {
           url: `/${id}`,
-          method: "PUT",
+          method: 'PUT',
           body,
         };
       },
 
-      invalidatesTags: ["Leaves"],
+      invalidatesTags: ['Leaves'],
     }),
   }),
 });
